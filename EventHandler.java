@@ -4,10 +4,10 @@ import character.*;
 
 public class EventHandler {
 
-    GamePanel gamePanel;
+    GamePanel1 gamePanel1;
 
-    public EventHandler(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public EventHandler(GamePanel1 gamePanel1) {
+        this.gamePanel1 = gamePanel1;
     }
 
     public void checkEvent() {
@@ -16,26 +16,26 @@ public class EventHandler {
         }
 
         if (playerTouchedByLightCycle()) {
-            gamePanel.gameState = gamePanel.gameOverState;
+            gamePanel1.gameState = gamePanel1.gameOverState;
         }
     }
 
     private boolean playerAtCorner() {
-        // Check if the player has reached any of the corners
+        // Check if the player1 has reached any of the corners
         int tolerance = 24; // Optional tolerance for checking if at corner
-        return (Math.abs(gamePanel.player.worldX) < tolerance && Math.abs(gamePanel.player.worldY) < tolerance) ||
-                (Math.abs(gamePanel.player.worldX - (gamePanel.screenWidth - gamePanel.tileSize)) < tolerance && Math.abs(gamePanel.player.worldY) < tolerance) ||
-                (Math.abs(gamePanel.player.worldX) < tolerance && Math.abs(gamePanel.player.worldY - (gamePanel.screenHeight - gamePanel.tileSize)) < tolerance) ||
-                (Math.abs(gamePanel.player.worldX - (gamePanel.screenWidth - gamePanel.tileSize)) < tolerance && Math.abs(gamePanel.player.worldY - (gamePanel.screenHeight - gamePanel.tileSize)) < tolerance);
+        return (Math.abs(gamePanel1.player1.worldX) < tolerance && Math.abs(gamePanel1.player1.worldY) < tolerance) ||
+                (Math.abs(gamePanel1.player1.worldX - (gamePanel1.screenWidth - gamePanel1.tileSize)) < tolerance && Math.abs(gamePanel1.player1.worldY) < tolerance) ||
+                (Math.abs(gamePanel1.player1.worldX) < tolerance && Math.abs(gamePanel1.player1.worldY - (gamePanel1.screenHeight - gamePanel1.tileSize)) < tolerance) ||
+                (Math.abs(gamePanel1.player1.worldX - (gamePanel1.screenWidth - gamePanel1.tileSize)) < tolerance && Math.abs(gamePanel1.player1.worldY - (gamePanel1.screenHeight - gamePanel1.tileSize)) < tolerance);
     }
 
     private boolean playerTouchedByLightCycle() {
         int tolerance = 24; // Adjust tolerance as needed
 
-        // Check if any light cycle has touched the player within a certain tolerance
-        for (LightCycle cycle : gamePanel.lightCycles) {
-            if (Math.abs(cycle.x - gamePanel.player.worldX) < tolerance &&
-                    Math.abs(cycle.y - gamePanel.player.worldY) < tolerance) {
+        // Check if any light cycle has touched the player1 within a certain tolerance
+        for (LightCycle cycle : gamePanel1.lightCycles) {
+            if (Math.abs(cycle.x - gamePanel1.player1.worldX) < tolerance &&
+                    Math.abs(cycle.y - gamePanel1.player1.worldY) < tolerance) {
                 return true;
             }
         }
@@ -47,12 +47,12 @@ public class EventHandler {
         System.out.println("You have completed the level! Transitioning to the next game...");
 
         // Stop the game panel and the thread safely
-        gamePanel.setVisible(false);
+        gamePanel1.setVisible(false);
 
         // Interrupt the thread if it's still running
-        if (gamePanel.gameThread != null && gamePanel.gameThread.isAlive()) {
-            gamePanel.gameThread.interrupt();
-            gamePanel.gameThread = null;
+        if (gamePanel1.gameThread != null && gamePanel1.gameThread.isAlive()) {
+            gamePanel1.gameThread.interrupt();
+            gamePanel1.gameThread = null;
         }
 
         // Optionally trigger external game process (like launching another game)

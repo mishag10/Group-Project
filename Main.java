@@ -11,19 +11,19 @@ public class Main {
         window.setTitle("PixelMash");
 
         // Create an instance of UI
-        UI ui = new UI(null); // Temporarily set gamePanel to null
+        UI ui = new UI(null); // Temporarily set gamePanel1 to null
 
         // Pass the UI instance to GamePanel constructor
-        GamePanel gamePanel = new GamePanel(ui);
-        ui.gamePanel = gamePanel; // Assign gamePanel to UI after instantiation
+        GamePanel1 gamePanel1 = new GamePanel1(ui);
+        ui.gamePanel1 = gamePanel1; // Assign gamePanel1 to UI after instantiation
 
-        window.add(gamePanel);
+        window.add(gamePanel1);
 
         window.pack(); // The pack() allows the window to be sized to fit the preferred size and layouts of its subcomponents, the GamePanel
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
 
-        gamePanel.startGameThread();
+        gamePanel1.startGameThread();
     }
 }

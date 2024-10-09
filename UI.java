@@ -6,14 +6,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class UI {
-    public GamePanel gamePanel;
+    public GamePanel1 gamePanel1;
     public Graphics2D g2d;
     public Font titleFont, normalFont;
     public BufferedImage titleScreenImage;
     public int commandNum = 0;
 
-    public UI(GamePanel gamePanel) {
-        this.gamePanel = gamePanel;
+    public UI(GamePanel1 gamePanel1) {
+        this.gamePanel1 = this.gamePanel1;
         titleFont = new Font("Arial", Font.BOLD, 72);  // For title text
         normalFont = new Font("Arial", Font.PLAIN, 24); // For normal text
 
@@ -28,7 +28,7 @@ public class UI {
     public void draw(Graphics2D g2d) {
         this.g2d = g2d;
 
-        if (gamePanel.gameState == gamePanel.titleState) {
+        if (gamePanel1.gameState == gamePanel1.titleState) {
             drawTitleScreen();
         }
     }
@@ -40,11 +40,11 @@ public class UI {
     private void drawTitleScreen() {
         // Draw the title screen background image if available
         if (titleScreenImage != null) {
-            g2d.drawImage(titleScreenImage, 0, 0, gamePanel.screenWidth, gamePanel.screenHeight, null);
+            g2d.drawImage(titleScreenImage, 0, 0, gamePanel1.screenWidth, gamePanel1.screenHeight, null);
         } else {
             // Draw a fallback background color if image is not found
             g2d.setColor(new Color(246, 1, 157));
-            g2d.fillRect(0, 0, gamePanel.screenWidth, gamePanel.screenHeight);
+            g2d.fillRect(0, 0, gamePanel1.screenWidth, gamePanel1.screenHeight);
         }
 
         // Draw title text
@@ -52,7 +52,7 @@ public class UI {
         g2d.setColor(new Color(1, 238, 246));
         String text = "PixelMash";
         int x = getXForCenteredText(text);
-        int y = gamePanel.screenHeight / 2 - 100;
+        int y = gamePanel1.screenHeight / 2 - 100;
         //g2d.drawString(text, x, y);
 
         // Draw "press" text
@@ -60,7 +60,7 @@ public class UI {
         g2d.setColor(new Color(255, 255, 255));
         String pressText = "press";
         x = getXForCenteredText(pressText);
-        y = gamePanel.screenHeight / 2 + 70;
+        y = gamePanel1.screenHeight / 2 + 70;
         g2d.drawString(pressText, x, y);
 
         // Draw "ENTER" text
@@ -77,14 +77,14 @@ public class UI {
 
         // Calculate the position near the bottom-right corner with some padding
         int padding = 20;  // Padding from the edge
-        int escX = gamePanel.screenWidth - g2d.getFontMetrics().stringWidth(escText) - padding;
-        int escY = gamePanel.screenHeight - padding;
+        int escX = gamePanel1.screenWidth - g2d.getFontMetrics().stringWidth(escText) - padding;
+        int escY = gamePanel1.screenHeight - padding;
 
         g2d.drawString(escText, escX, escY);
     }
 
     public int getXForCenteredText(String text) {
         int length = (int) g2d.getFontMetrics().getStringBounds(text, g2d).getWidth();
-        return gamePanel.screenWidth / 2 - length / 2;
+        return gamePanel1.screenWidth / 2 - length / 2;
     }
 }

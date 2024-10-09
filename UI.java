@@ -6,8 +6,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class UI {
-
-    BufferedImage FullHeart, EmptyHeart;
     public GamePanel gamePanel;
     public Graphics2D g2d;
     public Font titleFont, normalFont;
@@ -55,7 +53,7 @@ public class UI {
         String text = "PixelMash";
         int x = getXForCenteredText(text);
         int y = gamePanel.screenHeight / 2 - 100;
-        g2d.drawString(text, x, y);
+        //g2d.drawString(text, x, y);
 
         // Draw "press" text
         g2d.setFont(normalFont);  // Set font for normal text
@@ -71,6 +69,18 @@ public class UI {
         x = getXForCenteredText(enterText);
         y += g2d.getFontMetrics().getHeight();  // Move down for next line
         g2d.drawString(enterText, x, y);
+
+        // Draw "Press 'ESC' to leave" at the bottom right corner
+        g2d.setFont(normalFont);
+        g2d.setColor(new Color(1, 238, 246));
+        String escText = "Press 'ESC' to leave";
+
+        // Calculate the position near the bottom-right corner with some padding
+        int padding = 20;  // Padding from the edge
+        int escX = gamePanel.screenWidth - g2d.getFontMetrics().stringWidth(escText) - padding;
+        int escY = gamePanel.screenHeight - padding;
+
+        g2d.drawString(escText, escX, escY);
     }
 
     public int getXForCenteredText(String text) {

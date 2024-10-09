@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -16,6 +17,10 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (!gamePanel.hasFocus()) {
+            gamePanel.requestFocusInWindow();  // Regain focus if lost
+        }
+
         int key = e.getKeyCode();
 
         // Handle key events based on game state
@@ -25,6 +30,8 @@ public class KeyHandler implements KeyListener {
                     gamePanel.gameState = gamePanel.playState;  // Switch to play state
                     System.out.println("Game state changed to playState"); // Debug output
                 }
+            } else if (key == KeyEvent.VK_ESCAPE) {
+                System.exit(0);  // Close the game when Escape is pressed
             }
         } else if (gamePanel.gameState == gamePanel.playState) {
             // Handle movement keys
@@ -65,6 +72,5 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {
         // Not needed for now
-             }
     }
-
+}

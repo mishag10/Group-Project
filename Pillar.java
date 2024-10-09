@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Pillar {
     public int x, y; // Position of the pillar
     BufferedImage pillarImage;
-    public static final int SIZE = 200; // Size of the pillar
+    public static final int SIZE = 40; // Size of the pillar
 
     public Pillar(int x, int y) {
         this.x = x;

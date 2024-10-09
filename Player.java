@@ -66,48 +66,54 @@ public class Player extends Entity {
         // Handle movement input
         if (keyHandler.upPressed) {
             direction = "up";
-            if (getWorldY() - getSpeed() >= 0) {
-                nextY -= getSpeed();
-                isMoving = true;
-            }
+            nextY -= getSpeed();
+            isMoving = true;
         }
         if (keyHandler.downPressed) {
             direction = "down";
-            if (getWorldY() + getSpeed() + gamePanel.tileSize <= gamePanel.screenHeight) {
-                nextY += getSpeed();
-                isMoving = true;
-            }
+            nextY += getSpeed();
+            isMoving = true;
         }
         if (keyHandler.leftPressed) {
             direction = "left";
-            if (getWorldX() - getSpeed() >= 0) {
-                nextX -= getSpeed();
-                isMoving = true;
-            }
+            nextX -= getSpeed();
+            isMoving = true;
         }
         if (keyHandler.rightPressed) {
             direction = "right";
-            if (getWorldX() + getSpeed() + gamePanel.tileSize <= gamePanel.screenWidth) {
-                nextX += getSpeed();
-                isMoving = true;
+            nextX += getSpeed();
+            isMoving = true;
+        }
+
+        // Create separate rectangles for collision detection along each axis
+        Rectangle nextPlayerBoxX = new Rectangle(nextX, getWorldY(), gamePanel.tileSize, gamePanel.tileSize);
+        Rectangle nextPlayerBoxY = new Rectangle(getWorldX(), nextY, gamePanel.tileSize, gamePanel.tileSize);
+
+        // Check for horizontal collision
+        boolean horizontalCollision = false;
+        for (Pillar pillar : gamePanel.pillars) {
+            if (nextPlayerBoxX.intersects(pillar.getCollisionBox())) {
+                horizontalCollision = true;
+                break;
             }
         }
 
-        // Create a rectangle representing the player's next position
-        Rectangle nextPlayerBox = new Rectangle(nextX, nextY, gamePanel.tileSize, gamePanel.tileSize);
-
-        // Perform collision detection with obstacles (e.g., pillars or walls)
-        boolean collision = false;
-        for (Pillar pillar : gamePanel.pillars) {  // Assuming you have a list of Pillars in GamePanel
-            if (nextPlayerBox.intersects(pillar.getCollisionBox())) {
-                collision = true;
-                break;  // Stop checking if a collision is found
-            }
-        }
-
-        // Only update the player's position if no collision is detected
-        if (!collision) {
+        // If no horizontal collision, update X position
+        if (!horizontalCollision) {
             setWorldX(nextX);
+        }
+
+        // Check for vertical collision
+        boolean verticalCollision = false;
+        for (Pillar pillar : gamePanel.pillars) {
+            if (nextPlayerBoxY.intersects(pillar.getCollisionBox())) {
+                verticalCollision = true;
+                break;
+            }
+        }
+
+        // If no vertical collision, update Y position
+        if (!verticalCollision) {
             setWorldY(nextY);
         }
 
